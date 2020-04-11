@@ -28,8 +28,8 @@ $password = $_POST['password'];
 if (mb_strlen($password)<5||mb_strlen($password)>16) {
 	showMsg('请输入5-16位密码！');
 }
-
-if ($UM->add($username, $nickname, $password, '', 0)) {
+$hashed_pass = hash('sha256',$password);
+if ($UM->add($username, $nickname, $hashed_pass, '', 0)) {
 	showMsg('注册成功！将去往主页！',true, './');
 } else {
 	showMsg('添加用户失败！');

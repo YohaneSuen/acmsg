@@ -8,18 +8,18 @@ defined('ACC')||exit('ACC Denied');
 class userModel extends model {
 	protected $table = 'user';
 
-	public function add($username, $nickname, $password, $email, $type=0){
+	public function add($username, $nickname, $hashed_pass, $email, $type=0){
 		$arr = array();
 		$arr['regip'] = $_SERVER['REMOTE_ADDR'];
 		$arr['regtime'] = time();
 		$arr['username'] = $username;
 		$arr['nickname'] = $nickname;
-		$arr['password'] = $password;
+		$arr['hashed_password'] = $hashed_pass;
 		$arr['email'] = $email;
 		$arr['type'] = $type;
 		$re = $this->db->autoExecute($this->table, $arr);
 		if ($re) {
-			$this->login($username, $password);
+			$this->login($username, $hashed_pass);
 		}
 		return $re;
 	}
@@ -45,12 +45,12 @@ class userModel extends model {
 		return $db->getOne($sql);
 	}
 
-	public function login($user, $pass){
+	public function login($user, $hashed_pass){
 		$isLogin = false;
-		$sql = 'select uid,type,username,nickname,email,password,regtime,lastlogin from '.$this->table.' where username=\''.$user.'\'';
+		$sql = 'select uid,type,username,nickname,email,hashed_password,regtime,lastlogin from '.$this->table.' where username=\''.$user.'\'';
 		$row = $this->db->getRow($sql);
 		if (count($row)>0) {
-			if ($row['username']===$user&&$row['password']===$pass) {
+			if ($row['username']===$user&&$row['hashed_password']===$hashed_pass) {
 				$isLogin = true;
 				$_SESSION = $row;
 				$_SESSION['nickname'] = htmlspecialchars($_SESSION['nickname']);
