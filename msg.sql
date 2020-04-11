@@ -164,7 +164,7 @@ CREATE TABLE IF NOT EXISTS `user` (
   `username` varchar(16) NOT NULL DEFAULT '',
   `nickname` varchar(10) NOT NULL DEFAULT '',
   `email` varchar(30) NOT NULL DEFAULT '',
-  `password` varchar(16) NOT NULL DEFAULT '',
+  `hashed_password` varchar(64) NOT NULL DEFAULT '',
   `regtime` int(10) unsigned NOT NULL DEFAULT '0',
   `regip` varchar(15) NOT NULL DEFAULT '',
   `lastlogin` int(10) unsigned NOT NULL DEFAULT '0',
@@ -176,9 +176,9 @@ CREATE TABLE IF NOT EXISTS `user` (
 -- 转存表中的数据 `user`
 --
 
-INSERT INTO `user` (`uid`, `type`, `username`, `nickname`, `email`, `password`, `regtime`, `regip`, `lastlogin`, `lastip`) VALUES
-(1, 0, 'testa', '匿名', 'aa@aa.aa', '123456', 1474975269, '::1', 1476022900, '::1'),
-(2, 1, 'admin', '红名', 'a6@a.aa', 'admin', 1474975269, '', 1476613231, '::1');
+INSERT INTO `user` (`uid`, `type`, `username`, `nickname`, `email`, `hashed_password`, `regtime`, `regip`, `lastlogin`, `lastip`) VALUES
+(1, 0, 'testa', '匿名', 'aa@aa.aa', '8d969eef6ecad3c29a3a629280e686cf0c3f5d5a86aff3ca12020c923adc6c92', 1474975269, '::1', 1476022900, '::1'),
+(2, 1, 'admin', '红名', 'a6@a.aa', '8c6976e5b5410415bde908bd4dee15dfb167a9c873fc4bb8a81f6f2ab448a918', 1474975269, '', 1476613231, '::1');
 
 /*!40101 SET CHARACTER_SET_CLIENT=@OLD_CHARACTER_SET_CLIENT */;
 /*!40101 SET CHARACTER_SET_RESULTS=@OLD_CHARACTER_SET_RESULTS */;
